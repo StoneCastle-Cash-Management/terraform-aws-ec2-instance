@@ -40,8 +40,8 @@ variable "ami_os" {
   type        = string
   default     = "override"
   validation {
-    condition     = contains(["Windows", "Amazon_Linux", "RHEL", "Ubuntu", "override"], var.ami_os)
-    error_message = "Valid values for ami_os: Windows, Amazon_Linux, RHEL, Ubuntu, override. If you select override, provide a value for ami variable"
+    condition     = contains(["Windows", "Amazon_Linux", "Amazon_Linux_2023", "RHEL", "Ubuntu", "override"], var.ami_os)
+    error_message = "Valid values for ami_os: Windows, Amazon_Linux, Amazon_Linux_2023, RHEL, Ubuntu, override. If you select override, provide a value for ami variable"
   }
 }
 

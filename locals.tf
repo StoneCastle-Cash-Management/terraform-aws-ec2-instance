@@ -17,22 +17,24 @@ locals {
   )
   os_abv = lookup(
     {
-      Windows      = "WIN",
-      Amazon_Linux = "AL",
-      RHEL         = "RHEL",
-      Ubuntu       = "UB",
-      override     = local.windows_instance
+      Windows           = "WIN",
+      Amazon_Linux      = "AL",
+      Amazon_Linux_2023 = "AL2023"
+      RHEL              = "RHEL",
+      Ubuntu            = "UB",
+      override          = local.windows_instance
     },
     var.ami_os,
     var.ami_os
   )
   os_search = lookup(
     {
-      Windows      = "Windows_Server-2025-English-Full-Base-*"
-      Amazon_Linux = "amzn2-ami-kernel-5.10-hvm-*",
-      RHEL         = "RHEL-9.5.0_HVM-*",
-      Ubuntu       = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*",
-      override     = ""
+      Windows           = "Windows_Server-2025-English-Full-Base-*"
+      Amazon_Linux      = "amzn2-ami-kernel-5.10-hvm-*",
+      Amazon_Linux_2023 = "al2023-ami-2023.8.20250707.0-kernel-6.1-x86_64"
+      RHEL              = "RHEL-9.5.0_HVM-*",
+      Ubuntu            = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*",
+      override          = ""
     },
     var.ami_os
   )
