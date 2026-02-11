@@ -4,10 +4,12 @@ module "wrapper" {
   for_each = var.items
 
   ami                                  = try(each.value.ami, var.defaults.ami, null)
+  application                          = try(each.value.application, var.defaults.application, null)
   ami_ssm_parameter                    = try(each.value.ami_ssm_parameter, var.defaults.ami_ssm_parameter, "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2")
   associate_public_ip_address          = try(each.value.associate_public_ip_address, var.defaults.associate_public_ip_address, null)
   availability_zone                    = try(each.value.availability_zone, var.defaults.availability_zone, null)
   capacity_reservation_specification   = try(each.value.capacity_reservation_specification, var.defaults.capacity_reservation_specification, {})
+  create_shared_resources              = try(each.value.create_shared_resources, var.defaults.create_shared_resources, null)
   cpu_core_count                       = try(each.value.cpu_core_count, var.defaults.cpu_core_count, null)
   cpu_credits                          = try(each.value.cpu_credits, var.defaults.cpu_credits, null)
   cpu_options                          = try(each.value.cpu_options, var.defaults.cpu_options, {})
@@ -25,6 +27,7 @@ module "wrapper" {
   enable_volume_tags                   = try(each.value.enable_volume_tags, var.defaults.enable_volume_tags, true)
   enclave_options_enabled              = try(each.value.enclave_options_enabled, var.defaults.enclave_options_enabled, null)
   ephemeral_block_device               = try(each.value.ephemeral_block_device, var.defaults.ephemeral_block_device, [])
+  environment                          = try(each.value.environment, var.defaults.environment, null)
   get_password_data                    = try(each.value.get_password_data, var.defaults.get_password_data, null)
   hibernation                          = try(each.value.hibernation, var.defaults.hibernation, null)
   host_id                              = try(each.value.host_id, var.defaults.host_id, null)
@@ -51,7 +54,6 @@ module "wrapper" {
     "http_tokens"                 = "optional"
   })
   monitoring                          = try(each.value.monitoring, var.defaults.monitoring, null)
-  name                                = try(each.value.name, var.defaults.name, "")
   network_interface                   = try(each.value.network_interface, var.defaults.network_interface, [])
   placement_group                     = try(each.value.placement_group, var.defaults.placement_group, null)
   private_dns_name_options            = try(each.value.private_dns_name_options, var.defaults.private_dns_name_options, {})

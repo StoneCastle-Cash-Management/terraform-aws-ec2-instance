@@ -5,11 +5,11 @@
 resource "aws_instance" "this" {
   count = local.create && !var.ignore_ami_changes && !var.create_spot_instance ? 1 : 0
 
-  ami                  = local.ami
-  instance_type        = var.instance_type
+  ami           = local.ami
+  instance_type = var.instance_type
   # cpu_core_count       = var.cpu_core_count
   # cpu_threads_per_core = var.cpu_threads_per_core
-  hibernation          = var.hibernation
+  hibernation = var.hibernation
 
   user_data                   = var.user_data
   user_data_base64            = var.user_data_base64
@@ -19,7 +19,7 @@ resource "aws_instance" "this" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
 
-  key_name             = module.key-pair.key_pair_name
+  key_name             = local.effective_key_name
   monitoring           = var.monitoring
   get_password_data    = var.get_password_data
   iam_instance_profile = var.create_iam_instance_profile ? aws_iam_instance_profile.this[0].name : var.iam_instance_profile
@@ -183,11 +183,11 @@ resource "aws_instance" "this" {
 resource "aws_instance" "ignore_ami" {
   count = local.create && var.ignore_ami_changes && !var.create_spot_instance ? 1 : 0
 
-  ami                  = local.ami
-  instance_type        = var.instance_type
+  ami           = local.ami
+  instance_type = var.instance_type
   # cpu_core_count       = var.cpu_core_count
   # cpu_threads_per_core = var.cpu_threads_per_core
-  hibernation          = var.hibernation
+  hibernation = var.hibernation
 
   user_data                   = var.user_data
   user_data_base64            = var.user_data_base64
@@ -197,7 +197,7 @@ resource "aws_instance" "ignore_ami" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
 
-  key_name             = module.key-pair.key_pair_name
+  key_name             = local.effective_key_name
   monitoring           = var.monitoring
   get_password_data    = var.get_password_data
   iam_instance_profile = var.create_iam_instance_profile ? aws_iam_instance_profile.this[0].name : var.iam_instance_profile
@@ -367,11 +367,11 @@ resource "aws_instance" "ignore_ami" {
 resource "aws_spot_instance_request" "this" {
   count = local.create && var.create_spot_instance ? 1 : 0
 
-  ami                  = local.ami
-  instance_type        = var.instance_type
+  ami           = local.ami
+  instance_type = var.instance_type
   # cpu_core_count       = var.cpu_core_count
   # cpu_threads_per_core = var.cpu_threads_per_core
-  hibernation          = var.hibernation
+  hibernation = var.hibernation
 
   user_data                   = var.user_data
   user_data_base64            = var.user_data_base64
@@ -381,7 +381,7 @@ resource "aws_spot_instance_request" "this" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
 
-  key_name             = module.key-pair.key_pair_name
+  key_name             = local.effective_key_name
   monitoring           = var.monitoring
   get_password_data    = var.get_password_data
   iam_instance_profile = var.create_iam_instance_profile ? aws_iam_instance_profile.this[0].name : var.iam_instance_profile
@@ -395,10 +395,10 @@ resource "aws_spot_instance_request" "this" {
   ebs_optimized = var.ebs_optimized
 
   # Spot request specific attributes
-  spot_price                     = var.spot_price
-  wait_for_fulfillment           = var.spot_wait_for_fulfillment
-  spot_type                      = var.spot_type
-  launch_group                   = var.spot_launch_group
+  spot_price           = var.spot_price
+  wait_for_fulfillment = var.spot_wait_for_fulfillment
+  spot_type            = var.spot_type
+  launch_group         = var.spot_launch_group
   # block_duration_minutes         = var.spot_block_duration_minutes
   instance_interruption_behavior = var.spot_instance_interruption_behavior
   valid_until                    = var.spot_valid_until

@@ -460,3 +460,7 @@ variable "eip_tags" {
   default     = {}
 }
 
+variable "create_shared_resources" {
+  description = "This variable is so that create key pair module can be called conditionally when instance_number is 01"
+  type        = bool
+}
