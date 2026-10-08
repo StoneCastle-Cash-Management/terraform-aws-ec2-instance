@@ -106,7 +106,7 @@ resource "aws_instance" "this" {
 
     content {
       http_endpoint               = try(metadata_options.value.http_endpoint, "enabled")
-      http_tokens                 = try(metadata_options.value.http_tokens, "optional")
+      http_tokens                 = try(metadata_options.value.http_tokens, "required")
       http_put_response_hop_limit = try(metadata_options.value.http_put_response_hop_limit, 1)
       instance_metadata_tags      = try(metadata_options.value.instance_metadata_tags, null)
     }
